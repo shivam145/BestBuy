@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title><%= pageTitle %></title>
+    <link rel="stylesheet" href="/css/product-details.css">
+</head>
+<body>
+    <%- include('../partials/header.ejs') %>
+
+    <main class="product-item">
+        <h1><%= product.item%></h1>
+        <hr>
+        <div class="product-item_image">
+            <img src="<%= product.imgURL%>">
+            <h2>₹ <%= product.price%></h2>
+            <p><%= product.description%></p>
+        </div>
+        <div class="product-item_action">
+                <form action="/add-to-cart" method="POST" class="product_action">
+                    <button type="submit" class="btn">Add To Cart</button>
+                    <input type="hidden" name="productId"  value="<%= product.id%>">
+                </form>
+        </div>
+    </main>
+</body>
+</html>

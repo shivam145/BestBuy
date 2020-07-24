@@ -1,0 +1,10 @@
+.product-item {
+    align-content: center;
+    text-align: center;
+}
+
+.btn:hover {
+    color: white;
+    background-color: black;
+    cursor: pointer;
+}

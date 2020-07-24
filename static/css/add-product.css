@@ -1,0 +1,32 @@
+.main-form {
+
+    padding: 6rem;
+}
+
+.form-control input,
+.form-control textarea,
+.form-control label {
+    display: block;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.form-control input:focus,
+.form-control textarea:focus{
+    /*border: 1px solid black;*/
+    outline-color: black;
+    border-radius: 5px;
+    height: inherit;
+}
+
+
+.main-form_submit   {
+    color: white;
+    background-color: darkgrey;
+    border-radius: 3px;
+    border: 1px solid black;
+}
+
+.main-form_submit:hover {
+    background-color: black;
+}
