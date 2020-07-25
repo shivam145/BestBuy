@@ -1,1 +1,32 @@
-<%- include('../partials/header.ejs' )%>
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> <%= pageTitle %></title>
+</head>
+<body>
+    <%- include('../partials/header.ejs' )%>
+    <main>
+        <% if(products) { %>
+                <ul>
+                    <%for(product of products) { %>
+                    <li>
+                        <p><%= product.cartProduct.item %>(<%= product.qty %>)</p>
+                        <form action="/delete-from-cart" method="POST">
+                            <input type="hidden" name="productId" value="<%= product.cartProduct.id %>">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </li>
+                    <%}%>
+                </ul>
+        <%} else {%>
+            <h1> Cart is Empty </h1>
+        <%}%>
+    </main>
+
+
+</body>
+</html>
