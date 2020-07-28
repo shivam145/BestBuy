@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+        />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <link rel="stylesheet" href="/css/cart.css" />
+        <title><%= pageTitle %></title>
+    </head>
+    <body>
+        <%- include('../partials/header.ejs' )%>
+        <main>
+            <% if(orders .length > 0) { %>
+            <ul>
+                <%for(order of orders) {%>
+                <li>
+                    <h1>
+                        OrderId = #<%= order.id %>
+                        <ul>
+                            <%for(product of order.products) {%>
+                            <li>
+                                <div>
+                                    <%= product.item%>(<%=
+                                    product.OrderItem.quantity%>)
+                                </div>
+                            </li>
+                            <%}%>
+                        </ul>
+                    </h1>
+                </li>
+                <%}%>
+            </ul>
+            <%} else {%>
+            <h1>No Orders</h1>
+            <%}%>
+        </main>
+    </body>
+</html>
