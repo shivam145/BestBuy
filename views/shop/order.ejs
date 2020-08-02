@@ -18,13 +18,12 @@
                 <%for(order of orders) {%>
                 <li>
                     <h1>
-                        OrderId = #<%= order.id %>
+                        OrderId = #<%= order._id %>
                         <ul>
-                            <%for(product of order.products) {%>
+                            <%for(product of order.items) {%>
                             <li>
                                 <div>
-                                    <%= product.item%>(<%=
-                                    product.OrderItem.quantity%>)
+                                    <%= product.item%>(<%= product.quantity%>)
                                 </div>
                             </li>
                             <%}%>

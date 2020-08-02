@@ -17,12 +17,12 @@
             <ul>
                 <%for(product of products) { %>
                 <li>
-                    <p><%= product.item %>(<%= product.CartItem.quantity %>)</p>
+                    <p><%= product.item %>(<%= product.quantity %>)</p>
                     <form action="/delete-from-cart" method="POST">
                         <input
                             type="hidden"
                             name="productId"
-                            value="<%= product.id %>"
+                            value="<%= product._id %>"
                         />
                         <button type="submit">Delete</button>
                     </form>

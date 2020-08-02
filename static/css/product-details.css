@@ -8,3 +8,7 @@
     background-color: black;
     cursor: pointer;
 }
+
+.product-item_image img {
+    height: 20rem;
+}

@@ -1,13 +1,29 @@
-const Sequelize = require("sequelize");
-require("dotenv").config();
+const mongoDB = require("mongodb");
 
-const username = process.env["DB_USERNAME "];
-const password = process.env["DB_PASSWORD "];
+const MongoClient = mongoDB.MongoClient;
 
-const sequelize = new Sequelize("BestBuy", "root", "$Hiv9426846375", {
-    dialect: "mysql",
-    host: "localhost",
-    logging: false,
-});
+let _db;
 
-module.exports = sequelize;
+const mongoConnect = (callback) => {
+    MongoClient.connect(
+        "mongodb+srv://shivam145:$Hiv1234@testcluster.pl4tq.mongodb.net/shop"
+    )
+        .then((client) => {
+            console.log("connection successful");
+            _db = client.db();
+            callback();
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+};
+
+const getDB = () => {
+    if (_db) {
+        return _db;
+    }
+    return null;
+};
+
+exports.mongoConnect = mongoConnect;
+exports.getDB = getDB;

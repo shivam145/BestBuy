@@ -3,14 +3,9 @@ const bodyParser = require("body-parser");
 const path = require("path");
 require("dotenv").config();
 const app = express();
+const Users = require("./models/Users");
 
-const sequelize = require("./util/getDBInstance");
-const User = require("./models/Users");
-const Product = require("./models/products");
-const Cart = require("./models/cart");
-const CartItem = require("./models/cart-item");
-const Order = require("./models/order");
-const OrderItem = require("./models/order-item");
+const mongoConnect = require("./util/getDBInstance").mongoConnect;
 
 // equivalent to getting the router object of the admin.js
 const adminRouter = require("./routes/admin");
@@ -27,63 +22,28 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // handling routes/requests
 
 app.use((req, res, next) => {
-    User.findAll()
-        .then((users) => {
-            req.user = users[0];
+    Users.fetchById("5f22926223cf1f131abc5661")
+        .then((user) => {
+            // console.log(typeof user._id);
+            req.user = new Users(
+                user.username,
+                user.email,
+                user.cart,
+                user._id
+            );
             next();
         })
         .catch((err) => {
             console.log(err);
         });
 });
+
 app.use("/admin/", adminRouter);
 app.use(shopRouter);
 app.use("/", pageError.pagenotfound);
 
 // database related initalization
 
-//association defination
-User.hasMany(Product);
-Product.belongsTo(User);
-
-User.hasOne(Cart);
-Cart.belongsTo(User);
-
-Product.belongsToMany(Cart, { through: CartItem });
-Cart.belongsToMany(Product, { through: CartItem });
-
-User.hasMany(Order);
-Order.belongsTo(User);
-
-Order.belongsToMany(Product, { through: OrderItem });
-//Product.belongsToMany(Order, { through: OrderItem });
-
-//syncing the database
-sequelize
-    // .sync({ force: true })
-    .sync()
-    .then((result) => {
-        User.findAll()
-            .then((users) => {
-                if (users.length === 0) {
-                    return User.create({
-                        id: 1,
-                        username: "shivam",
-                        password: "shivam",
-                    });
-                }
-                return users[0];
-            })
-            .then((user) => {
-                return user.createCart();
-            })
-            .then(() => {
-                app.listen(3005);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    })
-    .catch((err) => {
-        console.log(err);
-    });
+mongoConnect(() => {
+    app.listen(3000);
+});
